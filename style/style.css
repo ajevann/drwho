@@ -1,0 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:300italic,700italic,300,700);
+
+body {
+	background-image:url('../media/background.jpg');
+	background-repeat:repeat-x;
+	background-attachment:fixed;
+	background-size: 100% 100%; 
+
+	padding-top:100px;
+	padding-bottom:100px;
+
+	font:20px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color:#777;
+	font-weight:300;
+
+	width:1000px;
+
+	margin-left:auto;
+	margin-right:auto;
+}
+
+section {
+	width:600px;
+	float:left;
+
+	display:inline;
+}
+
+button.tardisButton {
+	position: fixed;
+
+	color: #777;
+
+	top:500px;
+	right:500px;
+
+	font:15px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+img.tardis
+{
+	position:absolute;
+	top:275px;
+	right:175px;
+	width:350px;
+}
+
+.header {
+	width:100%;
+	padding-bottom:20px;
+}
+
+h1 {
+	font-size: 30px;
+	font-weight:500;
+
+	margin-left:auto;
+	margin-right:auto;
+}
