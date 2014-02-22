@@ -3,16 +3,9 @@
 
 <head>
 	<link href='style/style.css' rel='stylesheet' type='text/class'/>
-	<!-- Load jQuery from CloudFlare’s CDN. -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<!-- Load Sheetrock from the local environment. -->
-	<script src="js/jquery.sheetrock.js"></script>
-	<!-- Load extra js from the local environment. -->
-	<script src="js/utils.js"></script>
-	<!-- Load Handlebars.js from CloudFlare’s CDN. -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
-
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script type="text/javascript" language="javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" language="javascript" src="js/disasters.json"></script> 
+	<script type="text/javascript" language="javascript" src="js/aliens.json"></script> 
 
 </head>
 
@@ -26,31 +19,14 @@
 	</div>
 
 	<section>
-		<div id="entry">
-			<p>
-				<script id="entry-template" type="text/x-handlebars-template">
-					<strong>Oh awesome... Youve landed in {{cells.Location}} on {{cells.Date}} and guess what, {{cells.Type}}</strong></br>
-					</br>{{cells.Entry}}</br></br>
-				</script>
-			</p>
-		</div>
-		<div id="ps">
-			<p>
-				<script id="ps-template" type="text/x-handlebars-template">
-					<strong>Cool story bro... Somehow, you and the Doctor battle the {{cells.Alien}}, do something cool or whatever and all at the same time you survive... somehow...</strong>
-				</script>
-			</p>
-		</div>
+		<div id="entry"></div>
+		<div id="ps"></div>
 	</section>
-	
 
 	<script>
 
 		// Compile the Handlebars template for HR leaders.
 		var whoosh = new Audio('media/tardiswhoosh.wav');
-
-		var EntryTemplate = Handlebars.compile($('#entry-template').html());
-		var PSTemplate = Handlebars.compile($('#ps-template').html());
 
 	    var count = 0; 
 	    var large = {width: "200px"};
@@ -60,11 +36,11 @@
 
 		$("img.tardis").click(function(){
 			animateTardis();
-
 			refreshContent();
 		});
 
 		function animateTardis() {
+
 			$( ".header" ).fadeTo(1000 , 0.15);
 			$( ".header" ).fadeTo(1000 , 0.75);
 			$( ".header" ).fadeTo(1000 , 0.05);
@@ -98,44 +74,25 @@
 		}
 
 		function refreshContent(){
-			if (count > 0) {
-				$('#entry').fadeTo( 1000, 0.0 ).delay( 1000 );
-				$('#ps').fadeTo( 1000, 0.0 ).delay( 1000 );
-			}
-			else {
-				count++;
-			}
 
-			// Define spreadsheet URL.
-			var disasters = 'https://docs.google.com/spreadsheet/ccc?key=0AqF4Y0g1G4GbdHZ2cV9DX1VoSDZNQnNOWVdDT3NoVGc#gid=0';
-			var aliens = 'https://docs.google.com/spreadsheet/ccc?key=0AqF4Y0g1G4GbdHZ2cV9DX1VoSDZNQnNOWVdDT3NoVGc#gid=1';
+			var d = Math.floor( ( Math.random() * 195 ) + 1 );
+			var a = Math.floor( ( Math.random() * 332 ) + 1 );
 
-			$('#entry').delay( 1000 ).empty();
-			$('#ps').delay( 1000 ).empty();
+	    	$("#entry").fadeOut(1000, function() {
+				$("#entry").empty();
 
-			$('#entry').fadeTo( 1000, 1.0 );
-			$('#ps').fadeTo( 1000, 1.0 );
+				$("#entry").html("<strong>Oh awesome... Youve landed in " + disasters[d].location + " on " + disasters[d].date + " and guess what, " + disasters[d].type + "</strong></br></br>" + disasters[d].entry + "</br></br>");
 
-			var id = Math.floor( ( Math.random() * 195 ) + 1 );
-			var sqlstatement = "select A,B,C,D,E where A=" + id;
+				$("#entry").fadeIn(1000);
+	        });
 
-			$('#entry').sheetrock({
-				url: disasters,
-				sql: sqlstatement,
-				headersOff: true,
-				rowHandler: EntryTemplate
-			});	
+	    	$("#ps").fadeOut(1000, function() {
+				$("#ps").empty();
 
-			id = Math.floor( ( Math.random() * 332 ) + 1 );
-			sqlstatement = "select B where A=" + id;
+				$("#ps").html("<strong>Cool story bro... Somehow, you and the Doctor battle the " + aliens[a].alien + ", do something cool or whatever and all at the same time you survive... somehow...</strong>");
 
-			$('#ps').sheetrock({
-				url: aliens,
-				sql: sqlstatement,
-				headersOff: true,
-				rowHandler: PSTemplate
-			});
-
+				$("#ps").fadeIn(1000);
+	        });
 		}
 
 	</script>
